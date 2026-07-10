@@ -1,0 +1,17 @@
+# Experimental data is not distributed (code-only repository).
+# data/README.md is kept; the matrices themselves are not.
+data/*.dat
+data/*.csv
+data/*.txt
+data/*.tsv
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
