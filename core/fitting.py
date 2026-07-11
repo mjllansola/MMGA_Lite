@@ -448,5 +448,18 @@ class GlobalFitter:
                 result.profiles.append(C)
                 result.spectra.append(np.zeros((C.shape[1], ds.nw)))
                 result.residuals.append(ds.data.copy())
+            # Eigenmode matrices so the live preview's DAS/EADS views transform
+            # correctly (not just SAS) while the fit is still running.
+            try:
+                em = self.model.eigenmode_matrix(p)
+                if em is not None:
+                    result.eigenmode_M.append(em[0])
+                    result.eigenmode_taus.append(em[1])
+                else:
+                    result.eigenmode_M.append(None)
+                    result.eigenmode_taus.append(None)
+            except Exception:
+                result.eigenmode_M.append(None)
+                result.eigenmode_taus.append(None)
         result.params = params
         return result

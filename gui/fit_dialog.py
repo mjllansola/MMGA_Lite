@@ -14,7 +14,7 @@ import numpy as np
 import lmfit
 from PySide6.QtCore import Qt, QThread, Signal, QObject
 from PySide6.QtWidgets import (
-    QDialog, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout,
+    QDialog, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout,
     QPushButton, QLabel, QComboBox, QSpinBox, QCheckBox, QLineEdit,
     QTableWidget, QTableWidgetItem, QHeaderView, QGroupBox, QTabWidget,
     QSlider, QMessageBox, QProgressBar, QAbstractItemView,
@@ -138,7 +138,7 @@ class FitDialog(QDialog):
         self.n_spin.valueChanged.connect(self._on_model_changed)
         form.addRow("Components", self.n_spin)
 
-        self.conn_edit = QLineEdit("1>2, 2>3, 3>G")
+        self.conn_edit = QLineEdit("1>2, 2>3, 3>4, 4>G")
         self.conn_edit.setToolTip(
             "Target scheme, e.g. '1>2, 2>3, 3>G'. 'a>b' is transfer from "
             "compartment a to b; 'a>G' is decay of a to the ground state.")
@@ -194,7 +194,6 @@ class FitDialog(QDialog):
         is_target = self.model_combo.currentIndex() == 2
         self.conn_edit.setVisible(is_target)
         self.conn_row_label.setVisible(is_target)
-        self.n_spin.setEnabled(not is_target or True)
         self._rebuild_param_table()
 
     def _make_model(self):
@@ -277,7 +276,13 @@ class FitDialog(QDialog):
                                 min=float(np.log(lo)), max=float(np.log(hi)))
 
     def _rebuild_param_table(self):
-        """Rebuild the model + default parameters and repopulate the table."""
+        """Rebuild the model + default parameters and repopulate the table.
+
+        User-entered cells are preserved for parameters that survive the
+        rebuild, provided the model type is unchanged — so hand-tuned lifetimes
+        are kept when only the component count or the target connections change.
+        Switching model type falls back to fresh defaults.
+        """
         try:
             model, n = self._make_model()
             base = (model.default_params(n)
@@ -287,6 +292,20 @@ class FitDialog(QDialog):
             self.status.setText(f"Model error: {exc}")
             return
         self._apply_default_bounds(model, base)
+
+        # Snapshot the current cells (by parameter key) so surviving parameters
+        # keep the user's edits. Only within the same model type.
+        prior = {}
+        if type(model) is type(self._model):
+            for r in range(self.table.rowCount()):
+                it = self.table.item(r, 0)
+                if it is None:
+                    continue
+                prior[it.data(Qt.UserRole)] = (
+                    self.table.item(r, 1).text(), self.table.item(r, 2).text(),
+                    self.table.item(r, 3).text(),
+                    self.table.item(r, 4).checkState() == Qt.Checked)
+
         self._model = model
         self._base_params = base
 
@@ -294,20 +313,23 @@ class FitDialog(QDialog):
         for key, par in base.items():
             if key in ("n_exp", "n_comp"):
                 continue
-            is_tau = key.startswith("log_tau_")
-            if is_tau:
-                value = float(np.exp(par.value))
-                vmin = float(np.exp(par.min))
-                vmax = float(np.exp(par.max))
+            if key in prior:
+                vs, mns, mxs, vary = prior[key]
+            elif key.startswith("log_tau_"):
+                vs = self._fmt(np.exp(par.value))
+                mns = self._fmt(np.exp(par.min))
+                mxs = self._fmt(np.exp(par.max))
+                vary = bool(par.vary)
             else:
-                value, vmin, vmax = (float(par.value), float(par.min),
-                                     float(par.max))
-            self._add_param_row(key, value, vmin, vmax, bool(par.vary))
+                vs, mns, mxs = (self._fmt(par.value), self._fmt(par.min),
+                                self._fmt(par.max))
+                vary = bool(par.vary)
+            self._add_param_row(key, vs, mns, mxs, vary)
         self.status.setText(
             f"{len(self._datasets)} matrix(es) loaded. "
             "Kinetics are shared across all of them.")
 
-    def _add_param_row(self, key, value, vmin, vmax, vary):
+    def _add_param_row(self, key, value_str, min_str, max_str, vary):
         r = self.table.rowCount()
         self.table.insertRow(r)
 
@@ -316,8 +338,8 @@ class FitDialog(QDialog):
         name_item.setData(Qt.UserRole, key)
         self.table.setItem(r, 0, name_item)
 
-        for col, val in ((1, value), (2, vmin), (3, vmax)):
-            it = QTableWidgetItem(self._fmt(val))
+        for col, s in ((1, value_str), (2, min_str), (3, max_str)):
+            it = QTableWidgetItem(str(s))
             it.setFlags(Qt.ItemIsEnabled | Qt.ItemIsEditable
                         | Qt.ItemIsSelectable)
             self.table.setItem(r, col, it)
@@ -497,8 +519,9 @@ class FitDialog(QDialog):
         ax = self.ax_spec
         ax.clear()
         if S is not None:
+            r = self._result
             for c in range(S.shape[0]):
-                label = r.labels[c] if (r := self._result) and c < len(r.labels) else f"C{c+1}"
+                label = r.labels[c] if c < len(r.labels) else f"C{c+1}"
                 ax.plot(ds.wavelength, S[c, :], label=label)
             ax.legend(fontsize=8, ncol=2)
         ax.axhline(0, color="gray", lw=0.6)
