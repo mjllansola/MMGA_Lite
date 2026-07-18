@@ -11,12 +11,13 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
     QListWidget, QListWidgetItem, QLabel, QFileDialog, QMessageBox,
-    QSplitter, QAbstractItemView,
+    QSplitter, QAbstractItemView, QDialog,
 )
 
 from core.data import TADataset
 from gui.plot_widgets import MatrixViewer
 from gui.fit_dialog import FitDialog
+from gui.chirp_dialog import ChirpDialog
 
 _log = logging.getLogger(__name__)
 
@@ -51,6 +52,12 @@ class MainWindow(QMainWindow):
                               "Ctrl/Shift-click to select several.")
         btn_remove.clicked.connect(self._remove_selected)
 
+        self.btn_chirp = QPushButton("Remove chirp…")
+        self.btn_chirp.setToolTip("Manually correct group-velocity dispersion "
+                                  "(chirp) on the selected matrix.")
+        self.btn_chirp.clicked.connect(self._remove_chirp)
+        self.btn_chirp.setEnabled(False)
+
         self.btn_fit = QPushButton("Global fit…")
         self.btn_fit.clicked.connect(self._open_fit)
         self.btn_fit.setEnabled(False)
@@ -64,6 +71,7 @@ class MainWindow(QMainWindow):
         ll.addWidget(btn_raman)
         ll.addWidget(btn_remove)
         ll.addSpacing(12)
+        ll.addWidget(self.btn_chirp)
         ll.addWidget(self.btn_fit)
 
         # ---- right: viewer --------------------------------------------
@@ -158,7 +166,25 @@ class MainWindow(QMainWindow):
             self.viewer.set_dataset(self.datasets[row])
 
     def _refresh_state(self):
-        self.btn_fit.setEnabled(len(self.datasets) > 0)
+        has = len(self.datasets) > 0
+        self.btn_fit.setEnabled(has)
+        self.btn_chirp.setEnabled(has)
+
+    def _remove_chirp(self):
+        row = self.list.currentRow()
+        if not (0 <= row < len(self.datasets)):
+            return
+        ds = self.datasets[row]
+        x_label = f"Axis ({ds.x_unit})" if ds.x_unit else "Wavelength (nm)"
+        dlg = ChirpDialog(ds, x_label=x_label, parent=self)
+        if dlg.exec() == QDialog.Accepted:
+            corrected = dlg.corrected_dataset()
+            if corrected is not None:
+                # Replace the matrix in place with the chirp-corrected version.
+                self.datasets[row] = corrected
+                self.viewer.set_dataset(corrected)
+                self.statusBar().showMessage(
+                    f"Chirp correction applied to '{corrected.name}'.")
 
     def _open_fit(self):
         if not self.datasets:

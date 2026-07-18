@@ -19,6 +19,11 @@ pipeline. There is no pre-processing, no publication layout engine.
   1 ps, then logarithmic — the usual ultrafast-TA convention.
 - **Manage matrices** — remove one or several loaded matrices (Ctrl/Shift-click
   to multi-select, then **Remove matrix**).
+- **Remove chirp** — a manual group-velocity-dispersion correction. In the
+  popup, left-click the carpet to place time-zero points (a fine-picking trace
+  popup helps set each t0 exactly), right-click to remove the nearest; a
+  polynomial is fitted through your points and every wavelength is shifted to a
+  common t0. Points are placed **manually only — there is no auto-detection.**
 - **Fit** three kinetic models, with the kinetics shared globally across every
   loaded matrix:
   - **Parallel** (sum of independent exponentials) → DAS
@@ -99,10 +104,12 @@ core/
   data.py          TADataset: file loading and slicing
   models.py        Parallel / Sequential / Target kinetic models + IRF
   fitting.py       GlobalFitter (variable projection), FitResult
+  dispersion.py    manual chirp correction (polynomial fit + column shift)
 gui/
   main_window.py   matrix loader + viewer
   plot_widgets.py  exportable figure, matrix viewer with slide bars
   fit_dialog.py    model setup, threaded fit, result tabs
+  chirp_dialog.py  manual chirp-correction popup (no auto-guess)
 data/              sample matrices
 ```
 
