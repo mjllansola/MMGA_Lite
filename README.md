@@ -13,6 +13,10 @@ explore them, and fit a kinetic model whose lifetimes are shared across all
 loaded matrices. The linear associated spectra (DAS / SAS / EADS) are recovered
 by variable projection.
 
+This is an evolution of established target analysis (compartmental modelling
+of TA data, see `NOTICE.md`): the same variable-projection formalism, in a
+lightweight, dependency-minimal, open implementation.
+
 The scope is intentionally small: this is the modelling core, not a data
 pipeline. There is no pre-processing, no publication layout engine.
 
