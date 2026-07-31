@@ -122,10 +122,16 @@ class ExportableFigure(QWidget):
         for a path and calls ``csv_callback(path)``.
     csv_name : str
         Default filename stem offered in the CSV save dialog.
+    citation : str | None
+        If given, a small right-aligned label shown next to the toolbar
+        (e.g. the paper/data reference and preprint link).
     """
 
+    CITATION = ("Bercy et al., J. Am. Chem. Soc. 2026, 148, 23976–23985 "
+                "· arXiv: TBA")
+
     def __init__(self, figsize=(6.0, 4.0), csv_callback=None,
-                 csv_name="data", parent=None):
+                 csv_name="data", citation=None, parent=None):
         super().__init__(parent)
         self._csv_callback = csv_callback
         self._csv_name = csv_name
@@ -138,6 +144,10 @@ class ExportableFigure(QWidget):
         top = QHBoxLayout()
         top.setContentsMargins(0, 0, 0, 0)
         top.addWidget(self.toolbar, 1)
+        if citation is not None:
+            lbl = QLabel(citation)
+            lbl.setStyleSheet("color: #ddd; font-size: 13px; font-weight: 600;")
+            top.addWidget(lbl, 0)
         if csv_callback is not None:
             btn = QPushButton("Export data (CSV)…")
             btn.clicked.connect(self._on_export_csv)
@@ -205,7 +215,7 @@ class MatrixViewer(QWidget):
 
         self.figpanel = ExportableFigure(
             figsize=(8.0, 5.0), csv_callback=self._export_matrix_csv,
-            csv_name="matrix")
+            csv_name="matrix", citation=ExportableFigure.CITATION)
         self.fig = self.figpanel.fig
         gs = self.fig.add_gridspec(2, 2, width_ratios=[1.35, 1.0])
         self.ax_carpet = self.fig.add_subplot(gs[:, 0])

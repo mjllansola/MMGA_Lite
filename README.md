@@ -1,5 +1,12 @@
 # Global fitting — transient-absorption global & target analysis
 
+> **Reference:** Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
+> A. A.; Romero, J. J.; Robert, B.; Llansola-Portoles, M. J., Reassessing
+> Carotenoid Photophysics: Shedding Light on Dark States. *J. Am. Chem. Soc.*
+> **2026**, *148* (23), 23976-23985.
+>
+> **Preprint:** arXiv link TBA
+
 A minimal desktop application for **global and target analysis** of
 transient-absorption (TA) data. Load one or more time × wavelength matrices,
 explore them, and fit a kinetic model whose lifetimes are shared across all

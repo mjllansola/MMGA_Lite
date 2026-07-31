@@ -263,6 +263,11 @@ class TADataset:
         the kinetics across the four matrices in one global fit is the textbook
         use case. The x-axis is Raman shift (cm-1).
 
+        Data source: Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
+        A. A.; Romero, J. J.; Robert, B.; Llansola-Portoles, M. J., Reassessing
+        Carotenoid Photophysics: Shedding Light on Dark States. J. Am. Chem.
+        Soc. 2026, 148 (23), 23976-23985.
+
         Returns the datasets that are present in ``data/`` (an empty list if the
         bundled files are missing).
         """
