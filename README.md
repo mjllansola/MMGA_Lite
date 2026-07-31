@@ -1,4 +1,4 @@
-# Global fitting — transient-absorption global & target analysis
+# Multi-Matrix Global fitting — transient-absorption global & target analysis
 
 > **Reference:** Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
 > A. A.; Romero, J. J.; Robert, B.; Llansola-Portoles, M. J., Reassessing
