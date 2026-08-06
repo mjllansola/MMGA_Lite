@@ -7,8 +7,8 @@
 >
 > **Preprint:** arXiv link TBA
 
-A minimal desktop application for **global and target analysis** of
-transient-absorption (TA) data. Load one or more time × wavelength matrices,
+A  desktop application for **global and target analysis** of
+transient-absorption (TA) and FSRRS data. Load one or more time × wavelength matrices,
 explore them, and fit a kinetic model whose lifetimes are shared across all
 loaded matrices. The linear associated spectra (DAS / SAS / EADS) are recovered
 by variable projection.
