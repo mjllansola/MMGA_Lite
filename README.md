@@ -1,6 +1,8 @@
 # Multi-Matrix Global fitting
 
-> **Reference:** Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
+> **Reference:**
+> van Stokkum, I. H. M., Larsen, D. S. & van Grondelle, R. Global and target analysis of time-resolved spectra. Biochim. Biophys. Acta, Bioenerg. 1657, 82-104 (2004).
+> Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
 > A. A.; Romero, J. J.; Robert, B.; Llansola-Portoles, M. J., Reassessing
 > Carotenoid Photophysics: Shedding Light on Dark States. *J. Am. Chem. Soc.*
 > **2026**, *148* (23), 23976-23985.
