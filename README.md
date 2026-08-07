@@ -7,6 +7,11 @@
 > **2026**, *148* (23), 23976-23985.
 >
 > **Preprint:** arXiv link TBA
+>
+> **Method:** van Stokkum, I. H. M.; Larsen, D. S.; van Grondelle, R.
+> Global and target analysis of time-resolved spectra. *Biochim. Biophys.
+> Acta, Bioenerg.* **2004**, *1657*, 82–104.
+> doi:10.1016/j.bbabio.2004.04.011
 
 A  desktop application for **global and target analysis** of
 transient-absorption (TA) and FSRRS data. Load one or more time × wavelength matrices,
