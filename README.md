@@ -6,7 +6,10 @@
 > Carotenoid Photophysics: Shedding Light on Dark States. *J. Am. Chem. Soc.*
 > **2026**, *148* (23), 23976-23985.
 >
-> **Preprint:** arXiv link TBA
+> **Preprint:** Romero, J. J.; Gall, A.; D'mello, V. C.; Ilioaia, C.;
+> Pascal, A. A.; Robert, B.; Llansola-Portoles, M. J., The origin of
+> carotenoid triplets in purple photosynthetic bacteria. *arXiv* **2026**,
+> arXiv:2608.07390. https://arxiv.org/abs/2608.07390
 >
 > **Method:** van Stokkum, I. H. M.; Larsen, D. S.; van Grondelle, R.
 > Global and target analysis of time-resolved spectra. *Biochim. Biophys.
