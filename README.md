@@ -1,4 +1,4 @@
-# Multi-Matrix Global fitting
+# Multi-Matrix Global Analysis
 
 > **Reference:**
 > **Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,

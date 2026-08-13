@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Multi-Matrix Global Analysis (MMGA_Lite)"
+abstract: >-
+  A minimal desktop application for global and target analysis of
+  transient-absorption data. Lifetimes are shared across loaded matrices and
+  the associated spectra (DAS / SAS / EADS) are recovered by variable
+  projection.
+type: software
+authors:
+  - family-names: Romero
+    given-names: Juan J.
+    affiliation: >-
+      Laboratoire d'Ecophysiologie de la Photosynthese, Institut de Biologie
+      Integrative de la Cellule (I2BC), Universite Paris-Saclay / CNRS / CEA,
+      Gif-sur-Yvette, France
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Robert
+    given-names: Bruno
+    affiliation: >-
+      Laboratoire d'Ecophysiologie de la Photosynthese, Institut de Biologie
+      Integrative de la Cellule (I2BC), Universite Paris-Saclay / CNRS / CEA,
+      Gif-sur-Yvette, France
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Llansola-Portoles
+    given-names: Manuel J.
+    affiliation: >-
+      Laboratoire d'Ecophysiologie de la Photosynthese, Institut de Biologie
+      Integrative de la Cellule (I2BC), Universite Paris-Saclay / CNRS / CEA,
+      Gif-sur-Yvette, France
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/mjllansola/MMGA_Lite"
+license: MIT
+version: "v1"
+date-released: "2026-07-31"
+# doi: "10.5281/zenodo.XXXXXXX"   # add after the first Zenodo archive
+keywords:
+  - transient absorption
+  - global analysis
+  - target analysis
+  - ultrafast spectroscopy
+  - variable projection
