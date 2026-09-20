@@ -31,8 +31,8 @@ authors:
     # orcid: "https://orcid.org/0000-0000-0000-0000"
 repository-code: "https://github.com/mjllansola/MMGA_Lite"
 license: MIT
-version: "v1"
-date-released: "2026-07-31"
+version: "v1.1"
+date-released: "2026-09-20"
 # doi: "10.5281/zenodo.XXXXXXX"   # add after the first Zenodo archive
 keywords:
   - transient absorption
