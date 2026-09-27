@@ -1,5 +1,7 @@
 # Multi-Matrix Global Analysis
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22991534.svg)](https://doi.org/10.5281/zenodo.22991534)
+
 > **Reference:**
 > **Bercy, R.; D'mello, V. C.; Gall, A.; Ilioaia, C.; Pascal,
 > A. A.; Romero, J. J.; Robert, B.; Llansola-Portoles, M. J., Reassessing
