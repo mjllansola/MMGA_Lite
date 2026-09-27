@@ -32,8 +32,15 @@ authors:
 repository-code: "https://github.com/mjllansola/MMGA_Lite"
 license: MIT
 version: "v1.1"
-date-released: "2026-09-20"
-# doi: "10.5281/zenodo.XXXXXXX"   # add after the first Zenodo archive
+date-released: "2026-09-27"
+doi: "10.5281/zenodo.22991534"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22991534"
+    description: "Concept DOI - resolves to the latest version"
+  - type: doi
+    value: "10.5281/zenodo.22991535"
+    description: "Version DOI for v1.1"
 keywords:
   - transient absorption
   - global analysis
